@@ -1,7 +1,18 @@
+let nombreusuario = localStorage.getItem('nombreusuario')
+let apellidousuario = localStorage.getItem('apellidousuario')
+document.getElementById('nombreusuario').value = nombreusuario;
+document.getElementById('apellidousuario').value = apellidousuario;
+
+function ValidarFormulario(){
+    let nombreusuario = document.getElementById('nombreusuario').value;
+    let apellidousuario = document.getElementById('apellidousuario').value;
+    localStorage.setItem('nombreusuario', nombreusuario);
+    localStorage.setItem('apellidousuario', apellidousuario);
+}
 
 class Producto{
     constructor(id, nombre,precio, autor, editorial, genero){
-        this.id = id
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.autor = autor;
@@ -49,6 +60,7 @@ let productos = [
     new Producto(12,"La mentalidad anticapitalista",1000 ,"Ludwig von Mises","Unión Editorial","Ciencias sociales y humanísticas, Economía"),
 ]
 
+
 //Genero un array de autores
 let autores = ["Diego Giacomini", "Milei Giacomini","Rothbard", "Ludwig von Mises", "Israel M. Kirzner"];
 
@@ -65,10 +77,10 @@ while(autor != "Finalizar" && autor != null) {
     autor = prompt(
         'Ingrese un autor para continuar comprando o ingrese "Finalizar" para terminar sus compra/s: \n(' + string + ")"
     );
-   
+
     //
     if (autor != "Finalizar" && autor != null) {
-       let productosFiltradoPorAutor = productos.filter(
+        let productosFiltradoPorAutor = productos.filter(
         (item) => item.autor == autor
         );
 
@@ -101,14 +113,27 @@ if (productosEnCarro.length > 0) {
     let apellido = prompt('ingrese su apellido')
     let mail = prompt('ingrese su email');
 
-    //Creo una funcion para finalizar la compra
-function comprar(nombre, apellido, email, productosEnCarro) {
-    let cant = productosEnCarro.reduce((acc, item) => item.precio + acc, 0);/*
-    Uso el metodo reduce para pasar el precio final de la compra/s */
-    alert("Gracias" +" " + nombre + " " + apellido + " por tu compra. \n Total: $" + cant + "\n En breve te llegara a tu email: " + email + " " +  "Cuanto tiempo tardara el envio" );
-    /*Llamo un alert para que muestre la confirmacion de compra */
-}
 
+    //Creo una funcion para finalizar la compra
+    function comprar(nombre, apellido, email, productosEnCarro) {
+        let cant = productosEnCarro.reduce((acc, item) => item.precio + acc, 0);/*
+        Uso el metodo reduce para pasar el precio final de la compra/s */
+        alert("Gracias" +" " + nombre + " " + apellido + " por tu compra. \n Total: $" + cant + "\n En breve te llegara a tu email: " + email + " " +  "Cuanto tiempo tardara el envio" );
+        /*Llamo un alert para que muestre la confirmacion de compra */
+    }
+
+for (const producto of productos) {
+    let contenedor = document.createElement("div");
+    contenedor.innerHTML = `<h3> ID: ${producto.id}</h3>
+                <p>  Libro: ${producto.nombre}</p>
+                <p>Autor: ${producto.autor}</p>
+                <p>Editorial: ${producto.editorial}</p>
+                <p>Genero: ${producto.genero}</p>
+                <b>Precio: $ ${producto.precio}</b>`;
+                document.body.appendChild(contenedor);
+    }
+
+    
 //Llamo a la funcion
 comprar(nombre, apellido, mail, productosEnCarro);}
 
